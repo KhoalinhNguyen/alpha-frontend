@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes} from '@angular/router'
+import { RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 
 const appRoutes: Routes = [
   {path: 'users', component: UserListComponent}
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     UserListComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    EditUserDialogComponent
   ],
   imports: [
     BrowserModule,

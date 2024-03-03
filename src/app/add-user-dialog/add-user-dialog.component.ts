@@ -47,6 +47,7 @@ export class AddUserDialogComponent implements OnInit {
     this.user.phoneNumber = this.addUserForm.get("phoneNumber")?.value;
     this.user.currentPosition = this.addUserForm.get("currentPosition")?.value;
     this.user.department = this.addUserForm.get("department")?.value;
+    this.user.role = this.addUserForm.get("role")?.value;
 
     this.result = this.user;
     this.dialogRef.close(this.result);

@@ -1,3 +1,4 @@
+//this class object is a user data transfer object (DTO)
 export class User {
     id: number;
     firstName: string;
@@ -7,5 +8,4 @@ export class User {
     currentPosition: string;
     department: string;
     role: string;
-
 }

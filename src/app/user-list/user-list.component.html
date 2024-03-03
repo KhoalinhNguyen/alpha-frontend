@@ -39,7 +39,9 @@
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let user">
-        </td>
+            <button mat-flat-button (click)="deleteUser(user.id)">Delete</button>
+            <button mat-flat-button (click)="openEditUserDialog(user)">Edit</button>
+        </td>   
     </ng-container>
 
     <!--Definition of table headers and columns -->
