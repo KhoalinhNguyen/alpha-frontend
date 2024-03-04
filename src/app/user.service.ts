@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { User } from "./user.model";
+import { AuthenticationRequest } from "./authentication.request";
 
 @Injectable({
     providedIn: 'root'
@@ -37,4 +38,5 @@ export class UserService {
         
         return this.http.put<User>(`${this.apiUrl}/user/${user.id}`, user);
     }
+
 }
