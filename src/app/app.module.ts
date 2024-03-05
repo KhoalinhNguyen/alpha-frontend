@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 
 const appRoutes: Routes = [
   {path: 'users', component: UserListComponent},
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     UserListComponent,
     AddUserDialogComponent,
     EditUserDialogComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterDialogComponent
   ],
   imports: [
     BrowserModule,

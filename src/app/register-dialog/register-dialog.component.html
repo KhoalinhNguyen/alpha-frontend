@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Register</h2>
+<form [formGroup]="registerForm">
+    <mat-dialog-content style="display:flex; flex-direction: column;">
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Department</mat-label>
+            <input matInput formControlName="department" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Role</mat-label>
+            <input matInput formControlName="role" type="text">
+        </mat-form-field>
+    </mat-dialog-content>
+</form>
+
+<mat-dialog-actions>
+    <button type="submit" mat-button (click)="onRegisterUser()">Ok</button>
+    <button mat-stroked-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

@@ -3,6 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationRequest } from '../authentication.request';
 import { MatInput } from '@angular/material/input';
 import { AuthenticationService } from '../authentication.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
+import { RegisterRequest } from '../register.request';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +16,11 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
   authenticationRequest: AuthenticationRequest = new AuthenticationRequest();
+  registerRequest: RegisterRequest = new RegisterRequest();
   
   constructor(
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -35,4 +40,20 @@ export class LoginComponent implements OnInit{
 
     this.authenticationService.authenticateUser(this.authenticationRequest);
   }
+
+  openRegisterDialog() {
+    const dialogRef = this.dialog.open(RegisterDialogComponent);
+
+    dialogRef.afterClosed().subscribe(registerInfo => {
+      console.log(registerInfo);
+        
+      this.registerUser(registerInfo);
+    })
+  }
+
+  registerUser(registerRequest: RegisterRequest) {
+    registerRequest.role = "USER";
+    this.authenticationService.registerUser(registerRequest);
+  }
+
 }
