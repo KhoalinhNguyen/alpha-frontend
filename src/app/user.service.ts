@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { User } from "./user.model";
 import { AuthenticationRequest } from "./authentication.request";
+import { AxiosService } from "./axios.service";
 
 @Injectable({
     providedIn: 'root'
@@ -15,14 +16,17 @@ export class UserService {
 
     httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
 
-    constructor(private http: HttpClient) {}
+    constructor(
+      private http: HttpClient,
+      private axiosService: AxiosService
+      ) {}
 
     getUser(userId: number) : Observable<User> {
         return this.http.get<User>(`${this.apiUrl}/user/${userId}`);
     }
 
-    getAllUser(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.apiUrl}/all`);
+    getAllUser(): Promise<any> {
+        return this.axiosService.request("GET", "/alpha/all", null);
     }
 
     addNewUser(user: User) {

@@ -3,7 +3,5 @@ export class RegisterRequest {
     lastName: string;
     email: string;
     password: string;
-    phoneNumber: number;
-    department: string;
     role: string;
 }

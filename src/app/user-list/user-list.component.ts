@@ -32,9 +32,13 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log("on init");
+    
     this.userService.getAllUser()
-      .subscribe(list => {
-        this.userList = list;
+      .then(list => {
+        console.log(list.data);
+        
+        this.userList = list.data;
         this.dataSource = new MatTableDataSource(this.userList)
       });
   }
