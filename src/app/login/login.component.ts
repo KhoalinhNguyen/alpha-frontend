@@ -8,6 +8,8 @@ import { RegisterDialogComponent } from '../register-dialog/register-dialog.comp
 import { RegisterRequest } from '../register.request';
 import { AxiosService } from '../axios.service';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -24,11 +26,14 @@ export class LoginComponent implements OnInit{
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
     private axiosService: AxiosService,
-    private router: Router
+    private router: Router,
+    private appComponent: AppComponent,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.initForm();
+    
   }
 
   initForm() {
@@ -42,7 +47,14 @@ export class LoginComponent implements OnInit{
     this.authenticationRequest.email = this.loginForm.get("email")?.value;
     this.authenticationRequest.password = this.loginForm.get("password")?.value;
 
-    this.authenticationService.authenticateUser(this.authenticationRequest).then(res => { console.log(res);});
+    this.authenticationService.authenticateUser(this.authenticationRequest).then(responseObject => { 
+      console.log(responseObject);
+      console.log(responseObject.data.userDto.role);
+      this.axiosService.setAuthToken(responseObject.data.token);
+      this.userService.setIsAdmin(responseObject.data.userDto);
+      this.appComponent.ngOnInit();
+      this.router.navigateByUrl("users");
+    });
   }
 
   openRegisterDialog() {
@@ -50,17 +62,19 @@ export class LoginComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(registerInfo => {
       console.log(registerInfo);
-        
+      if(registerInfo) {
       this.registerUser(registerInfo);
+      }
     })
   }
 
   registerUser(registerRequest: RegisterRequest) {
     registerRequest.role = "USER";
-    this.authenticationService.registerUser(registerRequest).then(tokenObject => {
-      console.log(tokenObject);
-      this.axiosService.setAuthToken(tokenObject.data.token);
-      console.log("successful registered");
+    this.authenticationService.registerUser(registerRequest).then(responseObject => {
+      console.log(responseObject);
+      this.axiosService.setAuthToken(responseObject.data.token);
+      this.userService.setIsAdmin(responseObject.data.userDto);
+      this.appComponent.ngOnInit();
       this.router.navigateByUrl("users");
     });
   }

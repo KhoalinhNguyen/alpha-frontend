@@ -12,19 +12,22 @@ export class AxiosService {
    }
 
    //get the token from the local storage 
-    //TODO not yet functioning
   getAuthToken(): string | null {
     return window.localStorage.getItem("auth_token");
   }
 
-  //set the token 
-  //TODO not yet functining
+  //set the token
   setAuthToken(token: string | null): void {
     if(token !== null) {
       window.localStorage.setItem("auth_token", token);
     } else {
       window.localStorage.removeItem("auth_token");
     }
+  }
+
+  //remove token
+  removeToken() {
+    window.localStorage.removeItem("auth_token");
   }
 
   createAxiosClient(): AxiosInstance {
@@ -59,4 +62,5 @@ export class AxiosService {
     console.log(client);
     return client;
   }
+
 }

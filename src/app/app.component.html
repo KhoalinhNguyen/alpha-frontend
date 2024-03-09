@@ -1,7 +1,8 @@
 <h1>Alpha</h1>
-<a routerLink="/users" routerLinkActive="active">To user list</a>
+<button mat-flat-button (click)="goToPage('users')">Users</button>
 <br>
-<a routerLink="/login" routerLinkActive="active">Login</a>
+<button mat-flat-button *ngIf="!loggedIn" (click)="goToPage('login')">Login</button>
 
+<button mat-flat-button *ngIf="loggedIn" (click)="onLogOut()">Logout</button>
 <!--Use for changing view (anywhere with links to other component)-->
 <router-outlet></router-outlet>

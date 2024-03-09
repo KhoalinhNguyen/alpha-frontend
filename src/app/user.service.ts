@@ -12,17 +12,27 @@ export class UserService {
     
     private apiUrl = 'http://localhost:8082/alpha'
 
-    private user : User[] | undefined
-
     httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
 
     constructor(
-      private http: HttpClient,
       private axiosService: AxiosService
       ) {}
 
-    getUser(userId: number) : Observable<User> {
-        return this.http.get<User>(`${this.apiUrl}/user/${userId}`);
+    getUser(userId: number) {
+        return this.axiosService.createAxiosClient().get(`${this.apiUrl}/user/${userId}`);
+    }
+
+    setIsAdmin(user: User) {
+        if(user.role == "ADMIN") {
+        window.sessionStorage.setItem("isAdmin", "true");
+        }
+        else{
+        window.sessionStorage.setItem("isAdmin", "false");
+        }
+    }
+
+    getIsAdmin(): string | null {
+        return window.sessionStorage.getItem("isAdmin");
     }
 
     getAllUser(): Promise<any> {
@@ -30,17 +40,19 @@ export class UserService {
     }
 
     addNewUser(user: User) {
-        return this.http.post<User>(`${this.apiUrl}/newUser`, user);
+        return this.axiosService.createAxiosClient().post(`${this.apiUrl}/newUser`, user);
     }
 
     deleteUser(id: number) {
-        return this.http.delete(`${this.apiUrl}/user/${id}`);
+        return this.axiosService.createAxiosClient().delete(`${this.apiUrl}/user/${id}`);
       }
 
     editUser(user: User) {
         console.log(user);
         
-        return this.http.put<User>(`${this.apiUrl}/user/${user.id}`, user);
+        return this.axiosService.createAxiosClient().put(`${this.apiUrl}/user/${user.id}`, user);
+        //.put<User>(c);
     }
+
 
 }

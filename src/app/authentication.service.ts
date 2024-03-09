@@ -11,10 +11,7 @@ import { AxiosService } from "./axios.service";
 })
 export class AuthenticationService {
     
-    
-    private authUrl = '/auth'
-
-    private user : User[] | undefined
+    private loggedIn: Boolean
 
     constructor(
       private http: HttpClient,
@@ -30,4 +27,15 @@ export class AuthenticationService {
 
         return this.axiosService.request("POST", "auth/register", registerRequest);
       }
+
+    isLoggedIn() {
+      //check the token
+      console.log(this.axiosService.getAuthToken() !== null);
+      
+      return this.loggedIn = (this.axiosService.getAuthToken() !== null);
+    }
+
+    logOut() {
+      this.axiosService.removeToken();
+    }
 }

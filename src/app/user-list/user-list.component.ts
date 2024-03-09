@@ -11,6 +11,8 @@ import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.compo
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
+import { AxiosService } from '../axios.service';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -21,19 +23,22 @@ import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.co
 export class UserListComponent implements OnInit {
 
   userList : User[] | undefined;
+  isAdmin: Boolean;
 
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ["id", "first name", "last name","email","phone number", "current position","department", "action"]
+  displayedColumns: string[] = ["id", "first name", "last name","email","phone number", "current position","department", "action"];
   
 
   constructor(
     private userService: UserService,
-    private dialog: MatDialog    
+    private dialog: MatDialog,
+    private appComponent: AppComponent
   ) {}
 
   ngOnInit() {
-    console.log("on init");
-    
+    this.isAdmin = (this.userService.getIsAdmin() == "true");
+    console.log(this.isAdmin);
+      
     this.userService.getAllUser()
       .then(list => {
         console.log(list.data);
@@ -48,7 +53,9 @@ export class UserListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserDialogComponent);
 
     dialogRef.afterClosed().subscribe(userInfo => {
+      if(userInfo){
       this.addUser(userInfo);
+      }
     })
   }
 
@@ -58,36 +65,34 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(userInfo => {
       console.log(userInfo);
+      if(userInfo) {
       this.editUser(userInfo);
+      }
     })
   }
-  editUser(user: User) {
-    return this.userService.editUser(user).subscribe(
-      res => {
-        console.log(res);
-        this.ngOnInit();
-      }
-    );
+  async editUser(user: User) {
+    const res = await this.userService.editUser(user);
+    console.log(res);
+    this.ngOnInit();
   }
 
-  deleteUser(id: number) {
+  async deleteUser(id: number) {
     console.log(id);
     
-    return this.userService.deleteUser(id).subscribe(
+    const res = await this.userService.deleteUser(id);
+    this.ngOnInit();
+    /*this.userService.deleteUser(id).subscribe(
       res => {
         this.ngOnInit();
       }
-    );
+    );*/
   }
 
-  addUser(user: User) {
+  async addUser(user: User) {
     user.role = "USER";
-    return this.userService.addNewUser(user).subscribe(
-      res => {
-        //console.log(res);
-        this.ngOnInit();
-      }
-    );
+    const res = await this.userService.addNewUser(user);
+    //console.log(res);
+    this.ngOnInit();
   }
 
 }
