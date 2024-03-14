@@ -1,0 +1,11 @@
+
+    <mat-toolbar color="primary">
+      <button mat-flat-button color="inherit" (click)="goToPage('home')">Alpha</button>
+      <button mat-flat-button color="inherit" (click)="goToPage('users')">Users</button>
+      <span id="spacer"></span>
+      <button mat-flat-button type="submit" id="loginButton" *ngIf="!loggedIn" color="inherit" (click)="openLoginDialog()">Login</button>
+      <button mat-flat-button type="submit" id="loginButton" *ngIf="!loggedIn" color="inherit" (click)="openRegisterDialog()">Register</button>
+      <button mat-flat-button id="loginButton" *ngIf="loggedIn" color="inherit" (click)="onLogOut()">Logout</button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+

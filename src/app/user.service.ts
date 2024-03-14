@@ -35,6 +35,10 @@ export class UserService {
         return window.sessionStorage.getItem("isAdmin");
     }
 
+    deleteIsAdmin() {
+        window.sessionStorage.removeItem("isAdmin");
+    }
+
     getAllUser(): Promise<any> {
         return this.axiosService.request("GET", "/alpha/all", null);
     }

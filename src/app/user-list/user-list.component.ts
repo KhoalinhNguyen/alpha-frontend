@@ -31,13 +31,11 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private dialog: MatDialog,
-    private appComponent: AppComponent
-  ) {}
+    private dialog: MatDialog  ) {}
 
   ngOnInit() {
     this.isAdmin = (this.userService.getIsAdmin() == "true");
-    console.log(this.isAdmin);
+    console.log("user list");
       
     this.userService.getAllUser()
       .then(list => {

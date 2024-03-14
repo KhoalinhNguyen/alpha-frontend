@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationRequest } from '../authentication.request';
-import { MatInput } from '@angular/material/input';
-import { AuthenticationService } from '../authentication.service';
-import { MatDialog } from '@angular/material/dialog';
-import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { RegisterRequest } from '../register.request';
-import { AxiosService } from '../axios.service';
-import { Router } from '@angular/router';
-import { AppComponent } from '../app.component';
-import { UserService } from '../user.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -20,16 +13,10 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
   authenticationRequest: AuthenticationRequest = new AuthenticationRequest();
-  registerRequest: RegisterRequest = new RegisterRequest();
   
   constructor(
-    private authenticationService: AuthenticationService,
-    private dialog: MatDialog,
-    private axiosService: AxiosService,
-    private router: Router,
-    private appComponent: AppComponent,
-    private userService: UserService
-  ) {}
+    private dialogRef: MatDialogRef<LoginComponent>
+      ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -46,18 +33,29 @@ export class LoginComponent implements OnInit{
   onLogin() {
     this.authenticationRequest.email = this.loginForm.get("email")?.value;
     this.authenticationRequest.password = this.loginForm.get("password")?.value;
+  
+    this.dialogRef.close(this.authenticationRequest);
+  }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
+
+/*   onLogin() {
+    this.authenticationRequest.email = this.loginForm.get("email")?.value;
+    this.authenticationRequest.password = this.loginForm.get("password")?.value;
 
     this.authenticationService.authenticateUser(this.authenticationRequest).then(responseObject => { 
       console.log(responseObject);
       console.log(responseObject.data.userDto.role);
       this.axiosService.setAuthToken(responseObject.data.token);
       this.userService.setIsAdmin(responseObject.data.userDto);
-      this.appComponent.ngOnInit();
+      this.mainNav.ngOnInit();
       this.router.navigateByUrl("users");
     });
-  }
+  } */
 
-  openRegisterDialog() {
+/*   openRegisterDialog() {
     const dialogRef = this.dialog.open(RegisterDialogComponent);
 
     dialogRef.afterClosed().subscribe(registerInfo => {
@@ -74,8 +72,8 @@ export class LoginComponent implements OnInit{
       console.log(responseObject);
       this.axiosService.setAuthToken(responseObject.data.token);
       this.userService.setIsAdmin(responseObject.data.userDto);
-      this.appComponent.ngOnInit();
+      this.mainNav.ngOnInit();
       this.router.navigateByUrl("users");
     });
-  }
+  } */
 }
