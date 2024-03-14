@@ -17,12 +17,19 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
-import { LoginComponent } from './login/login.component';
+import { LoginDialogComponent } from './login/login.component';
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   {path: 'users', component: UserListComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginDialogComponent},
+  {path: 'home', component: HomeComponent}
 ]
 
 @NgModule({
@@ -31,8 +38,10 @@ const appRoutes: Routes = [
     UserListComponent,
     AddUserDialogComponent,
     EditUserDialogComponent,
-    LoginComponent,
-    RegisterDialogComponent
+    LoginDialogComponent,
+    RegisterDialogComponent,
+    MainNavComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +56,11 @@ const appRoutes: Routes = [
     FormsModule,
     MatButtonModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
