@@ -4,15 +4,8 @@ import { User } from '../user.model';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
 import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
-import { AxiosService } from '../axios.service';
-import { AppComponent } from '../app.component';
 
 
 @Component({
